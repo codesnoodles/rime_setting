@@ -1,0 +1,11 @@
+customization:
+  distribution_code_name: Weasel
+  distribution_version: 0.15.0.0
+  generator: "Weasel::UIStyleSettings"
+  modified_time: "Thu Nov  9 20:34:41 2023"
+  rime_version: 1.8.5
+patch:
+  "style/color_scheme": starcraft
+  "style/font_face": "华文楷体"
+  "style/font_point": 14
+  "style/horizontal": false

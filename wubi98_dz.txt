@@ -1,0 +1,9 @@
+# Rime table
+#@/db_name	wubi98_dz
+#@/db_type	tabledb
+#@/rime_version	1.9.0
+#@/tick	5
+王	gggg	1
+山	mmmm	1
+那	ng	2
+言	yyyy	1

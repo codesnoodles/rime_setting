@@ -1,0 +1,54 @@
+customization:
+  distribution_code_name: Weasel
+  distribution_version: 0.15.0.0
+  generator: "Weasel::UIStyleSettings"
+  modified_time: "Thu Nov 23 15:08:08 2023"
+  rime_version: 1.8.5
+patch:
+  "app_options/Runtime Broker.exe":
+    ascii_mode: true
+    vim_mode: true
+  "app_options/code.exe":
+    ascii_mode: true
+    vim_mode: true
+  "app_options/lua-language-server.exe":
+    ascii_mode: true
+    vim_mode: true
+  "app_options/nvim.exe":
+    ascii_mode: true
+    vim_mode: true
+  "app_options/openconsole.exe":
+    ascii_mode: true
+    vim_mode: true
+  "app_options/powershell.exe":
+    ascii_mode: true
+  "app_options/windowsterminal.exe":
+    ascii_mode: true
+    vim_mode: true
+  "app_options/xshell.exe":
+    ascii_mode: true
+    vim_mode: true
+  "app_options/xshellcore.exe":
+    ascii_mode: true
+    vim_mode: true
+  style:
+    color_scheme: okjike
+    okjike: {author: MapleO, back_color: 0x11E4FF, border_color: 0x4D453E, border_height: 6, border_width: 20, candidate_list_layout: stacked, candidate_text_color: 0x4D453E, comment_text_color: 0x4D453E, corner_radius: 5, hilited_back_color: 0x11E4FF, hilited_candidate_back_color: 0xF3BB64, hilited_candidate_label_color: 0xFFFFFF, hilited_candidate_text_color: 0xFFFFFF, hilited_comment_text_color: 0xFFFFFF, hilited_corner_radius: 0, hilited_text_color: 0x4D453E, inline_preedit: false, label_color: 0x4D453E, label_font_face: "STHeitiSC-Light", label_format: "%s.", name: "即刻黄/JiKeYellow", text_color: 0x4D453E}
+  "style/color_scheme": flypy
+  "style/comment_font_face": "Fira Code"
+  "style/comment_font_point": 16
+  "style/display_tray_icon": false 
+  "style/font_face": "Fira Code"
+  "style/font_point": 16
+  "style/inline_preedit": true
+  "style/label_font_face": "Fira Code"
+  "style/label_font_point": 16
+  "style/line_sapcing": 10
+  "style/sapcing": 5
+  "style/vertical_text": true
+  "style/horizontal": false
+  "style/vertical_text_left_to_right": false
+  "style/vertical_text_with_wrap": false
+  "style/vertical_auto_resver": true
+  "style/layout/max_height": 300
+  "style/layout/corner_radius": 8

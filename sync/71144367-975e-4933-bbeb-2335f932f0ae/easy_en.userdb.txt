@@ -1,0 +1,8 @@
+# Rime user dictionary
+#@/db_name	easy_en
+#@/db_type	userdb
+#@/rime_version	1.8.5
+#@/tick	3
+#@/user_id	71144367-975e-4933-bbeb-2335f932f0ae
+dna 	DNA	c=1 d=1 t=1
+ipv 	IPv4	c=1 d=1 t=3

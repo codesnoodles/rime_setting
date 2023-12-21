@@ -1,0 +1,254 @@
+# by yanhuacuo 2019-01-03
+# 配置整合版
+# Rime schema settings
+# encoding: utf-8
+
+schema:
+  schema_id: wubi98_ci
+  name: "五笔·含词"
+  version: "5.0"
+  author:
+    - 發明人 王永民
+  description: |
+    五笔98版
+    碼表源自 yanhuacuo
+    敲 z 鍵進入拼音反查
+  icon: "./a7tdi-2uhc6-001.ico"
+  ascii_icon: "./微信图片_20231124201129.ico"
+  dependencies:
+    - py
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [中文, 英文]
+  - name: zh_trad
+    reset: 0
+    states: [ 简,繁 ]
+  - name: 98wb_spelling
+    reset: 0
+    states: [ 隐,显 ]    
+  - name: jiayin
+    reset: 1
+    states: ["🈚︎", "🈶️"]
+  - name: gb2312
+    reset: 0
+    states: [ 扩,常 ]
+  - name: emoji_suggestion
+    reset: 1
+    states: ["🈚︎", "🈶️"]
+    
+engine:
+  filters:
+    - charset_filter@gb2312  
+    - simplifier
+    - "reverse_lookup_filter@ci_reverse_lookup"
+    - "simplifier@98wb_spelling"    
+    - "simplifier@jiayin"
+    - simplifier@emoji_suggestion
+    - uniquifier
+  processors:
+    - lua_processor@vim_mode
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - "affix_segmentor@mkst"
+    - "affix_segmentor@rvlk1"
+    - "affix_segmentor@zhuyin_fix"
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - reverse_lookup_translator
+    - "table_translator@rvlk1"
+    - table_translator
+    - "table_translator@fixed"
+    - "table_translator@mkst"
+    - "table_translator@zhuyin_fix"
+    - "history_translator@history"
+	
+speller:
+  auto_select: true
+  # auto_clear: max_length
+  delimiter: "`"
+  max_code_length: 4
+  
+translator:
+  dictionary: wubi98_ci.extended
+  db_class: tabledb
+  initial_quality: 100000
+  enable_charset_filter: false
+  enable_sentence: false
+  enable_encoder: false
+  encode_commit_history: false
+  max_phrase_length: 2
+  enable_completion: true
+  enable_user_dict: false
+  disable_user_dict_for_patterns:
+    - "^z.*$"
+
+fixed:
+  __include: /translator
+  initial_quality: 1000
+  enable_encoder: true
+  enable_user_dict: true
+  
+mkst:
+  __include: /translator
+  initial_quality: 10
+  enable_sentence: true
+  prefix: '`'
+  tips: "〔精准造词〕"
+  tag: mkst
+
+# reverse_lookup:
+#   __include: /translator
+#   dictionary: py
+#   tips: "〔拼音反查〕"
+#   preedit_format:
+#     - xform/([nl])v/$1ü/
+#     - xform/([nl])ue/$1üe/
+#     - xform/([jqxy])v/$1u/
+#   tag: rvlk2
+    
+reverse_lookup:
+  __include: /translator
+  dictionary: flypy
+  tips: "〔拼音反查〕"
+  preedit_format:
+    - xform/([nl])v/$1ü/
+    - xform/([nl])ue/$1üe/
+    - xform/([jqxy])v/$1u/
+  tag: rvlk2
+rvlk1:
+  __include: /reverse_lookup
+  prefix: "z"
+  tag: rvlk1
+  extra_tags:
+    - rvlk2  
+    
+
+ci_reverse_lookup:
+  dictionary: wubi98_ci.extended
+  tips: "〔五笔滤镜〕"
+  tags:
+    - rvlk2
+    
+zhuyin_fix:
+  __include: /translator
+  prefix: '~'
+  tips: "〔以形查音〕"
+  tag: zhuyin_fix
+
+simplifier:
+  opencc_config: s2t.json
+  option_name: zh_trad
+
+
+98wb_spelling:
+  opencc_config: 98wb_spelling.json
+  option_name: 98wb_spelling
+  show_in_comment: true
+  comment_format:
+    - "xform/☯/ · /"    
+    - "xform/<br>/\r/"
+    - "xform/※※※/ /"
+    - "xform/※※/ /"    
+    - "xform/※/ /"
+  tags:
+    - abc
+    - rvlk1
+  tips: all 
+
+
+jiayin:
+  opencc_config: jiayin.json
+  option_name: jiayin
+  show_in_comment: true
+  comment_format:
+    - "xform/<br>/\r/"
+    - "xform/&nbsp/ /"
+  tags:
+#   - abc
+    - zhuyin_fix
+  tips: all 
+
+recognizer:
+  import_preset: default
+  patterns:
+    email: "^[A-Za-z][-_.0-9A-Za-z]*@.*$"
+    mkst: "^[a-y]*`[a-y`]*$"
+    punct: "^/([0-9]0?|[A-Za-z]+)$"
+    rvlk1: "^z[a-z]*'?$"
+    rvlk2: "^z[a-z]*'?$"
+    uppercase: "[A-Z][-_+.'0-9A-Za-z]*$"
+    url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"
+    zhuyin_fix: "~[a-y]*?$"
+	
+charset_filter:
+  option_name: gb2312
+  
+history:
+  input: z
+  size: 1
+  initial_quality: 1
+
+key_binder:
+  import_preset: default #方案切换相关
+  bindings:
+    - { accept: bracketleft, send: Page_Up, when: paging } # [上翻页
+    - { accept: bracketright, send: Page_Down, when: has_menu } # ]下翻页
+    # - { accept: comma, send: comma, when: paging } #注销逗号翻页
+    - { accept: period, send: period, when: has_menu } #注销句号翻页
+    - { accept: semicolon, send: 2, when: has_menu } #分号次选
+    - { accept: comma, send: 3, when: has_menu } #逗号三选
+    #  - {accept: Release+semicolon, send: semicolon, when: has_menu} #如启用此行，则分号引导符号功能无效
+    - { accept: Release+period, send: period, when: composing } #句号顶屏
+    - { accept: Release+comma, send: comma, when: composing } #逗号顶屏
+    - { accept: "Tab", send: Escape, when: composing }
+    - { accept: "Shift_R", send: Escape, when: composing }
+    - { accept: "Control+period", toggle: full_shape, when: always } #切换全半角
+    # - { accept: "Control+period", toggle: ascii_punct, when: always } #切换中英标点
+    - { accept: "Shift+space", toggle: simplification, when: always } #切换简繁
+    # - {always: "Control+bracketleft",set_option: "ascii_mode"} #使用keybinder的模式进行英文切换
+  # bindings:
+  #   - {accept: Left, send: Up, when: has_menu}
+  #   - {accept: Right, send: Down, when: has_menu}  
+  #   - {accept: minus, send: Page_Up, when: has_menu}
+  #   - {accept: equal, send: Page_Down, when: has_menu}
+  #   - {accept: semicolon, send: 2, when: has_menu}
+  #   - {accept: apostrophe, send: 3, when: has_menu}
+  #   - {accept: space, send: Escape, when: composing}
+  #   - {accept: space, send: space, when: has_menu}
+  #   - {accept: Return, send: Escape, when: composing}
+  #   - {accept: Return, send: Escape, when: has_menu}
+  #   - {accept: "Control+Shift+4", toggle: zh_trad, when: always}
+  #   - {accept: "Control+Shift+dollar", toggle: zh_trad, when: always}
+  #   - {accept: "Control+Shift+F", toggle: zh_trad, when: always}
+  #   - {accept: "Control+Shift+H", toggle: 98wb_spelling, when: always}
+  #   - {accept: "Control+Shift+J", toggle: 98wb_spelling, when: always} 
+  #   - {accept: "Control+Shift+K", toggle: 98wb_spelling, when: always}
+  #   - {accept: "Control+Shift+U", toggle: gb2312, when: always} 
+  #   - {accept: "Control+Shift+I", toggle: gb2312, when: always} 
+  #   - {accept: "Control+Shift+O", toggle: gb2312, when: always}
+
+punctuator:
+  import_preset: symbols  
+
+menu:
+  page_size: 10 
+
+emoji_suggestion:
+  opencc_config: emoji.json
+  option_name: emoji_suggestion
+  tips: all
+  inherit_comment: false

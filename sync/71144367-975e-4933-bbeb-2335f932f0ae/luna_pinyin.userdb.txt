@@ -1,0 +1,9 @@
+# Rime user dictionary
+#@/db_name	luna_pinyin
+#@/db_type	userdb
+#@/rime_version	1.8.5
+#@/tick	3
+#@/user_id	71144367-975e-4933-bbeb-2335f932f0ae
+pin yin 	拼音	c=1 d=1 t=2
+shi 	是	c=1 d=1 t=3
+wo 	我	c=1 d=1 t=3
