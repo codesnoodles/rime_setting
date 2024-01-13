@@ -1,23 +1,8 @@
-98wb_spelling:
-  comment_format:
-    - "xform/☯/ · /"
-    - |
-      xform/<br>//
-    - "xform/※※※/ /"
-    - "xform/※※/ /"
-    - "xform/※/ /"
-  opencc_config: 98wb_spelling.json
-  option_name: 98wb_spelling
-  show_in_comment: true
-  tags:
-    - abc
-    - rvlk1
-  tips: all
 __build_info:
   rime_version: 1.9.0
   timestamps:
     default: 1700629998
-    default.custom: 1703062345
+    default.custom: 1705133814
     key_bindings: 1700629998
     key_bindings.custom: 0
     punctuation: 1700629998
@@ -25,7 +10,7 @@ __build_info:
     symbols: 1700629998
     symbols.custom: 0
     wubi98_ci.custom: 0
-    wubi98_ci.schema: 1703167402
+    wubi98_ci.schema: 1705129404
 charset_filter:
   option_name: gb2312
 ci_reverse_lookup:
@@ -33,6 +18,13 @@ ci_reverse_lookup:
   tags:
     - rvlk2
   tips: "〔五笔滤镜〕"
+custom_phraseYWZ:
+  db_class: stabledb
+  dictionary: ""
+  enable_completion: false
+  enable_sentence: false
+  initial_quality: 1
+  user_dict: all_output_result_shuangpin
 emoji_suggestion:
   inherit_comment: false
   opencc_config: emoji.json
@@ -43,12 +35,14 @@ engine:
     - "charset_filter@gb2312"
     - simplifier
     - "reverse_lookup_filter@ci_reverse_lookup"
-    - "simplifier@98wb_spelling"
     - "simplifier@jiayin"
     - "simplifier@emoji_suggestion"
+    - "lua_filter@new_spelling@spelling"
     - uniquifier
   processors:
-    - "lua_processor@vim_mode"
+    - "lua_processor@vim_ob"
+    - "lua_processor@submit_text_processor"
+    - "lua_processor@switch_processor"
     - ascii_composer
     - recognizer
     - key_binder
@@ -69,12 +63,17 @@ engine:
   translators:
     - punct_translator
     - reverse_lookup_translator
+    - "lua_translator@date_translator"
+    - "lua_translator@time_translator"
     - "table_translator@rvlk1"
     - table_translator
     - "table_translator@fixed"
     - "table_translator@mkst"
     - "table_translator@zhuyin_fix"
+    - "table_translator@custom_phraseYWZ"
     - "history_translator@history"
+    - "lua_translator@helper"
+    - "lua_translator@time_date"
 fixed:
   db_class: tabledb
   dictionary: wubi98_ci.extended
@@ -119,6 +118,9 @@ key_binder:
     - {accept: "Control+period", toggle: full_shape, when: always}
     - {accept: "Shift+space", toggle: simplification, when: always}
   import_preset: default
+lua_reverse_db:
+  code: wb_spelling
+  spelling: wb_spelling
 menu:
   page_size: 10
 mkst:
@@ -437,7 +439,7 @@ reverse_lookup:
     - "xform/([nl])ue/$1üe/"
     - "xform/([jqxy])v/$1u/"
   tag: rvlk2
-  tips: "〔拼音反查〕"
+  tips: "〔双拼反查〕"
 rvlk1:
   db_class: tabledb
   dictionary: flypy
@@ -459,19 +461,20 @@ rvlk1:
     - "xform/([jqxy])v/$1u/"
   prefix: z
   tag: rvlk1
-  tips: "〔拼音反查〕"
+  tips: "〔双拼反查〕"
 schema:
-  ascii_icon: "./微信图片_20231124201129.ico"
+  ascii_icon: "./648081_android_bot_curious_mine_purple_icon.ico"
   author:
     - "發明人 王永民"
   dependencies:
     - py
+    - flypy
   description: |
     五笔98版
     碼表源自 yanhuacuo
     敲 z 鍵進入拼音反查
 
-  icon: "./a7tdi-2uhc6-001.ico"
+  icon: "./648084_android_bot_eyes_happy_red_icon.ico"
   name: "五笔·含词"
   schema_id: wubi98_ci
   version: 5.0
@@ -489,8 +492,8 @@ switches:
   - name: zh_trad
     reset: 0
     states: ["简", "繁"]
-  - name: 98wb_spelling
-    reset: 0
+  - name: new_spelling
+    reset: 1
     states: ["隐", "显"]
   - name: jiayin
     reset: 1
@@ -520,13 +523,13 @@ zhuyin_fix:
   disable_user_dict_for_patterns:
     - "^z.*$"
   enable_charset_filter: false
-  enable_completion: true
+  enable_completion: false
   enable_encoder: false
-  enable_sentence: false
+  enable_sentence: true
   enable_user_dict: false
   encode_commit_history: false
-  initial_quality: 100000
-  max_phrase_length: 2
+  initial_quality: 10
+  max_phrase_length: 4
   prefix: "~"
   tag: zhuyin_fix
   tips: "〔以形查音〕"

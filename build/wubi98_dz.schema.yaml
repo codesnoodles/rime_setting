@@ -30,7 +30,7 @@ __build_info:
   rime_version: 1.9.0
   timestamps:
     default: 1700629998
-    default.custom: 1703062345
+    default.custom: 1705133814
     key_bindings: 1700629998
     key_bindings.custom: 0
     punctuation: 1700629998
@@ -38,7 +38,7 @@ __build_info:
     symbols: 1700629998
     symbols.custom: 0
     wubi98_dz.custom: 0
-    wubi98_dz.schema: 1703167235
+    wubi98_dz.schema: 1704873095
 charset_filter:
   option_name: gb2312
 ci_reverse_lookup:
@@ -46,6 +46,18 @@ ci_reverse_lookup:
   tags:
     - rvlk2
   tips: "〔五笔滤镜〕"
+custom_phraseYWZ:
+  db_class: stabledb
+  dictionary: ""
+  enable_completion: false
+  enable_sentence: false
+  initial_quality: 1
+  user_dict: all_output_result_shuangpin
+emoji_suggestion:
+  inherit_comment: false
+  opencc_config: emoji.json
+  option_name: emoji_suggestion
+  tips: all
 engine:
   filters:
     - "charset_filter@gb2312"
@@ -54,6 +66,7 @@ engine:
     - "simplifier@98wb_spelling_rk"
     - "simplifier@98wb_spelling"
     - "simplifier@jiayin"
+    - "simplifier@emoji_suggestion"
     - uniquifier
   processors:
     - ascii_composer
@@ -81,6 +94,7 @@ engine:
     - "table_translator@fixed"
     - "table_translator@mkst"
     - "table_translator@zhuyin_fix"
+    - "table_translator@custom_phraseYWZ"
     - "history_translator@history"
 fixed:
   db_class: tabledb
@@ -112,25 +126,20 @@ jiayin:
   tips: all
 key_binder:
   bindings:
-    - {accept: Left, send: Up, when: has_menu}
-    - {accept: Right, send: Down, when: has_menu}
-    - {accept: minus, send: Page_Up, when: has_menu}
-    - {accept: equal, send: Page_Down, when: has_menu}
+    - {accept: bracketleft, send: Page_Up, when: paging}
+    - {accept: bracketright, send: Page_Down, when: has_menu}
+    - {accept: bracketleft, send: Page_Up, when: paging}
+    - {accept: bracketright, send: Page_Down, when: has_menu}
+    - {accept: period, send: period, when: has_menu}
     - {accept: semicolon, send: 2, when: has_menu}
-    - {accept: apostrophe, send: 3, when: has_menu}
-    - {accept: space, send: Escape, when: composing}
-    - {accept: space, send: space, when: has_menu}
-    - {accept: Return, send: Escape, when: composing}
-    - {accept: Return, send: Escape, when: has_menu}
-    - {accept: "Control+Shift+4", toggle: zh_trad, when: always}
-    - {accept: "Control+Shift+dollar", toggle: zh_trad, when: always}
-    - {accept: "Control+Shift+F", toggle: zh_trad, when: always}
-    - {accept: "Control+Shift+H", toggle: 98wb_spelling, when: always}
-    - {accept: "Control+Shift+J", toggle: 98wb_spelling_rk, when: always}
-    - {accept: "Control+Shift+K", toggle: 98wb_spelling, when: always}
-    - {accept: "Control+Shift+U", toggle: gb2312, when: always}
-    - {accept: "Control+Shift+I", toggle: gb2312, when: always}
-    - {accept: "Control+Shift+O", toggle: gb2312, when: always}
+    - {accept: comma, send: 3, when: has_menu}
+    - {accept: "Release+period", send: period, when: composing}
+    - {accept: "Release+comma", send: comma, when: composing}
+    - {accept: Tab, send: Escape, when: composing}
+    - {accept: Shift_R, send: Escape, when: composing}
+    - {accept: "Control+period", toggle: full_shape, when: always}
+    - {accept: "Shift+space", toggle: simplification, when: always}
+  import_preset: default
 menu:
   page_size: 10
 mkst:
@@ -449,7 +458,7 @@ reverse_lookup:
     - "xform/([nl])ue/$1üe/"
     - "xform/([jqxy])v/$1u/"
   tag: rvlk2
-  tips: "〔拼音反查〕"
+  tips: "〔双拼反查〕"
 rvlk1:
   db_class: tabledb
   dictionary: flypy
@@ -471,9 +480,8 @@ rvlk1:
     - "xform/([jqxy])v/$1u/"
   prefix: z
   tag: rvlk1
-  tips: "〔拼音反查〕"
+  tips: "〔双拼反查〕"
 schema:
-  ascii_icon: "./微信图片_20231124201129.ico"
   author:
     - "發明人 王永民"
   dependencies:
@@ -484,7 +492,6 @@ schema:
     碼表源自 yanhuacuo
     敲 z 鍵進入拼音反查
 
-  icon: "./微信图片_20231123163736.ico"
   name: "五笔·单字"
   schema_id: wubi98_dz
   version: 5.0
@@ -512,6 +519,9 @@ switches:
   - name: gb2312
     reset: 0
     states: ["扩", "常"]
+  - name: emoji_suggestion
+    reset: 1
+    states: ["🈚︎", "🈶️"]
 translator:
   db_class: tabledb
   dictionary: wubi98_dz.extended

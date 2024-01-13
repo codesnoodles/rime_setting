@@ -1,7 +1,7 @@
 # by yanhuacuo 2019-01-03
 # 配置整合版
 # Rime schema settings
-# encoding: utf-8
+# encoding: utf-8  
 
 schema:
   schema_id: wubi98_ci
@@ -13,10 +13,11 @@ schema:
     五笔98版
     碼表源自 yanhuacuo
     敲 z 鍵進入拼音反查
-  icon: "./a7tdi-2uhc6-001.ico"
-  ascii_icon: "./微信图片_20231124201129.ico"
+  icon: "./648084_android_bot_eyes_happy_red_icon.ico"
+  ascii_icon: "./648081_android_bot_curious_mine_purple_icon.ico" 
   dependencies:
     - py
+    - flypy 
 
 switches:
   - name: ascii_mode
@@ -25,9 +26,12 @@ switches:
   - name: zh_trad
     reset: 0
     states: [ 简,繁 ]
-  - name: 98wb_spelling
-    reset: 0
-    states: [ 隐,显 ]    
+  # - name: 98wb_spelling
+  #   reset: 0
+  #   states: [ 隐,显 ] 
+  - name: new_spelling
+    reset: 1
+    states: [ 隐,显 ]
   - name: jiayin
     reset: 1
     states: ["🈚︎", "🈶️"]
@@ -43,12 +47,15 @@ engine:
     - charset_filter@gb2312  
     - simplifier
     - "reverse_lookup_filter@ci_reverse_lookup"
-    - "simplifier@98wb_spelling"    
+    # - "simplifier@98wb_spelling"    
     - "simplifier@jiayin"
     - simplifier@emoji_suggestion
+    - lua_filter@new_spelling@spelling
     - uniquifier
   processors:
-    - lua_processor@vim_mode
+    - lua_processor@vim_ob
+    - lua_processor@submit_text_processor
+    - lua_processor@switch_processor
     - ascii_composer
     - recognizer
     - key_binder
@@ -69,12 +76,17 @@ engine:
   translators:
     - punct_translator
     - reverse_lookup_translator
+    - lua_translator@date_translator
+    - lua_translator@time_translator
     - "table_translator@rvlk1"
     - table_translator
     - "table_translator@fixed"
     - "table_translator@mkst"
     - "table_translator@zhuyin_fix"
+    - table_translator@custom_phraseYWZ
     - "history_translator@history"
+    - "lua_translator@helper"
+    - "lua_translator@time_date"
 	
 speller:
   auto_select: true
@@ -95,6 +107,14 @@ translator:
   enable_user_dict: false
   disable_user_dict_for_patterns:
     - "^z.*$"
+
+custom_phraseYWZ:
+  dictionary: ""
+  user_dict: all_output_result_shuangpin
+  db_class: stabledb
+  enable_sentence: false
+  enable_completion: false # 编码提示开关
+  initial_quality: 1 #用户词和系统词重码居后
 
 fixed:
   __include: /translator
@@ -123,7 +143,7 @@ mkst:
 reverse_lookup:
   __include: /translator
   dictionary: flypy
-  tips: "〔拼音反查〕"
+  tips: "〔双拼反查〕"
   preedit_format:
     - xform/([nl])v/$1ü/
     - xform/([nl])ue/$1üe/
@@ -143,31 +163,50 @@ ci_reverse_lookup:
   tags:
     - rvlk2
     
+# zhuyin_fix:
+#   __include: /translator
+#   prefix: '~'
+#   tips: "〔以形查音〕"
+#   tag: zhuyin_fix
 zhuyin_fix:
-  __include: /translator
-  prefix: '~'
-  tips: "〔以形查音〕"
+  db_class: tabledb
+  dictionary: wubi98_ci.extended
+  disable_user_dict_for_patterns:
+    - "^z.*$"
+  enable_charset_filter: false
+  enable_completion: false
+  enable_encoder: false
+  enable_sentence: true
+  enable_user_dict: false
+  encode_commit_history: false
+  initial_quality: 10
+  max_phrase_length: 4
+  prefix: "~"
   tag: zhuyin_fix
+  tips: "〔以形查音〕" 
 
 simplifier:
   opencc_config: s2t.json
   option_name: zh_trad
 
+lua_reverse_db:
+  spelling: wb_spelling
+  code: wb_spelling
 
-98wb_spelling:
-  opencc_config: 98wb_spelling.json
-  option_name: 98wb_spelling
-  show_in_comment: true
-  comment_format:
-    - "xform/☯/ · /"    
-    - "xform/<br>/\r/"
-    - "xform/※※※/ /"
-    - "xform/※※/ /"    
-    - "xform/※/ /"
-  tags:
-    - abc
-    - rvlk1
-  tips: all 
+# 98wb_spelling:
+#   opencc_config: 98wb_spelling.json
+#   option_name: 98wb_spelling
+#   show_in_comment: true
+#   comment_format:
+#     - "xform/☯/ · /"    
+#     - "xform/<br>/\r/"
+#     - "xform/※※※/ /"
+#     - "xform/※※/ /"    
+#     - "xform/※/ /"
+#   tags:
+#     - abc
+#     - rvlk1
+#   tips: all 
 
 
 jiayin:
@@ -219,27 +258,6 @@ key_binder:
     - { accept: "Control+period", toggle: full_shape, when: always } #切换全半角
     # - { accept: "Control+period", toggle: ascii_punct, when: always } #切换中英标点
     - { accept: "Shift+space", toggle: simplification, when: always } #切换简繁
-    # - {always: "Control+bracketleft",set_option: "ascii_mode"} #使用keybinder的模式进行英文切换
-  # bindings:
-  #   - {accept: Left, send: Up, when: has_menu}
-  #   - {accept: Right, send: Down, when: has_menu}  
-  #   - {accept: minus, send: Page_Up, when: has_menu}
-  #   - {accept: equal, send: Page_Down, when: has_menu}
-  #   - {accept: semicolon, send: 2, when: has_menu}
-  #   - {accept: apostrophe, send: 3, when: has_menu}
-  #   - {accept: space, send: Escape, when: composing}
-  #   - {accept: space, send: space, when: has_menu}
-  #   - {accept: Return, send: Escape, when: composing}
-  #   - {accept: Return, send: Escape, when: has_menu}
-  #   - {accept: "Control+Shift+4", toggle: zh_trad, when: always}
-  #   - {accept: "Control+Shift+dollar", toggle: zh_trad, when: always}
-  #   - {accept: "Control+Shift+F", toggle: zh_trad, when: always}
-  #   - {accept: "Control+Shift+H", toggle: 98wb_spelling, when: always}
-  #   - {accept: "Control+Shift+J", toggle: 98wb_spelling, when: always} 
-  #   - {accept: "Control+Shift+K", toggle: 98wb_spelling, when: always}
-  #   - {accept: "Control+Shift+U", toggle: gb2312, when: always} 
-  #   - {accept: "Control+Shift+I", toggle: gb2312, when: always} 
-  #   - {accept: "Control+Shift+O", toggle: gb2312, when: always}
 
 punctuator:
   import_preset: symbols  

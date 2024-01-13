@@ -13,8 +13,8 @@ schema:
     五笔98版
     碼表源自 yanhuacuo
     敲 z 鍵進入拼音反查
-  icon: "./微信图片_20231123163736.ico"
-  ascii_icon: "./微信图片_20231124201129.ico"
+  # icon: "./微信图片_20231123163736.ico"
+  # ascii_icon: "./微信图片_20231124201129.ico"
   dependencies:
     - py
     - flypy
@@ -35,6 +35,9 @@ switches:
   - name: gb2312
     reset: 0
     states: [ 扩,常 ]
+  - name: emoji_suggestion
+    reset: 1
+    states: ["🈚︎", "🈶️"]
     
 engine:
   filters:
@@ -44,6 +47,7 @@ engine:
     - "simplifier@98wb_spelling_rk"
     - "simplifier@98wb_spelling"
     - "simplifier@jiayin"
+    - simplifier@emoji_suggestion
     - uniquifier
   processors:
     - ascii_composer
@@ -71,6 +75,7 @@ engine:
     - "table_translator@fixed"
     - "table_translator@mkst"
     - "table_translator@zhuyin_fix"
+    - table_translator@custom_phraseYWZ
     - "history_translator@history"
 	
 speller:
@@ -93,6 +98,13 @@ translator:
   disable_user_dict_for_patterns:
     - "^z.*$"
 
+custom_phraseYWZ:
+  dictionary: ""
+  user_dict: all_output_result_shuangpin
+  db_class: stabledb
+  enable_sentence: false
+  enable_completion: false # 编码提示开关
+  initial_quality: 1 #用户词和系统词重码居后
 fixed:
   __include: /translator
   initial_quality: 1000
@@ -119,7 +131,7 @@ mkst:
 reverse_lookup:
   __include: /translator
   dictionary: flypy
-  tips: "〔拼音反查〕"
+  tips: "〔双拼反查〕"
   preedit_format:
     - xform/([nl])v/$1ü/
     - xform/([nl])ue/$1üe/
@@ -216,29 +228,30 @@ history:
   
 
 key_binder:
+  import_preset: default #方案切换相关
   bindings:
-    - {accept: Left, send: Up, when: has_menu}
-    - {accept: Right, send: Down, when: has_menu}  
-    - {accept: minus, send: Page_Up, when: has_menu}
-    - {accept: equal, send: Page_Down, when: has_menu}
-    - {accept: semicolon, send: 2, when: has_menu}
-    - {accept: apostrophe, send: 3, when: has_menu}
-    - {accept: space, send: Escape, when: composing}
-    - {accept: space, send: space, when: has_menu}
-    - {accept: Return, send: Escape, when: composing}
-    - {accept: Return, send: Escape, when: has_menu}
-    - {accept: "Control+Shift+4", toggle: zh_trad, when: always}
-    - {accept: "Control+Shift+dollar", toggle: zh_trad, when: always}
-    - {accept: "Control+Shift+F", toggle: zh_trad, when: always}
-    - {accept: "Control+Shift+H", toggle: 98wb_spelling, when: always}
-    - {accept: "Control+Shift+J", toggle: 98wb_spelling_rk, when: always} 
-    - {accept: "Control+Shift+K", toggle: 98wb_spelling, when: always}
-    - {accept: "Control+Shift+U", toggle: gb2312, when: always} 
-    - {accept: "Control+Shift+I", toggle: gb2312, when: always} 
-    - {accept: "Control+Shift+O", toggle: gb2312, when: always}
+    - { accept: bracketleft, send: Page_Up, when: paging } # [上翻页
+    - { accept: bracketright, send: Page_Down, when: has_menu } # ]下翻页
+    # - { accept: comma, send: comma, when: paging } #注销逗号翻页
+    - { accept: period, send: period, when: has_menu } #注销句号翻页
+    - { accept: semicolon, send: 2, when: has_menu } #分号次选
+    - { accept: comma, send: 3, when: has_menu } #逗号三选
+    #  - {accept: Release+semicolon, send: semicolon, when: has_menu} #如启用此行，则分号引导符号功能无效
+    - { accept: Release+period, send: period, when: composing } #句号顶屏
+    - { accept: Release+comma, send: comma, when: composing } #逗号顶屏
+    - { accept: "Tab", send: Escape, when: composing }
+    - { accept: "Shift_R", send: Escape, when: composing }
+    - { accept: "Control+period", toggle: full_shape, when: always } #切换全半角
+    # - { accept: "Control+period", toggle: ascii_punct, when: always } #切换中英标点
+    - { accept: "Shift+space", toggle: simplification, when: always } #切换简繁
 
 punctuator:
   import_preset: symbols
   
 menu:
   page_size: 10 
+emoji_suggestion:
+  opencc_config: emoji.json
+  option_name: emoji_suggestion
+  tips: all
+  inherit_comment: false

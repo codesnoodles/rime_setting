@@ -2,7 +2,7 @@ __build_info:
   rime_version: 1.9.0
   timestamps:
     weasel: 1700629658
-    weasel.custom: 1701013025
+    weasel.custom: 1704894296
 app_options:
   "Runtime Broker.exe":
     ascii_mode: true
@@ -512,14 +512,14 @@ preset_color_schemes:
 show_notifications_when: always
 style:
   color_scheme: flypy
-  comment_font_face: "Fira Code"
+  comment_font_face: "98WB-0"
   comment_font_point: 16
   display_tray_icon: false
-  font_face: "Fira Code"
+  font_face: "98WB-U"
   font_point: 16
   horizontal: false
   inline_preedit: true
-  label_font_face: "Fira Code"
+  label_font_face: "98WB-0"
   label_font_point: 16
   layout:
     corner_radius: 8
@@ -550,6 +550,6 @@ style:
     text_color: 0x4D453E
   sapcing: 5
   vertical_auto_resver: true
-  vertical_text: true
+  vertical_text: false
   vertical_text_left_to_right: false
   vertical_text_with_wrap: false
