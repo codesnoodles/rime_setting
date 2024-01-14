@@ -1,5 +1,5 @@
 var:
-  last_build_time: 1705133850
+  last_build_time: 1705217690
   option:
     simplification: true
   previously_selected_schema: wubi98_ci
@@ -8,7 +8,8 @@ var:
     easy_en: 1699534645
     emoji: 1699516936
     flypy: 1704872564
+    japanese: 1705134017
     luna_pinyin: 1700065408
     luna_pinyin_fluency: 1699514387
-    wubi98_ci: 1704872589
+    wubi98_ci: 1705134024
     wubi98_dz: 1703167319

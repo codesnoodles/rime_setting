@@ -2,7 +2,7 @@
 #@/db_name	wubi98_ci
 #@/db_type	tabledb
 #@/rime_version	1.9.0
-#@/tick	2379
+#@/tick	2390
 工	a	3
 式	aa	3
 工具	aahw	1
@@ -37,7 +37,7 @@
 䓹	awyv	2
 芳	ay	1
 巧言令色	aywq	1
-了	b	60
+了	b	61
 子	b	3
 子	bb	4
 取	bc	1
@@ -99,6 +99,7 @@
 码	dcg	1
 码数	dcov	2
 大	dd	2
+大	dddd	1
 大作	ddwt	1
 历	de	3
 胡	de	4
@@ -126,7 +127,7 @@
 还	dh	8
 不能	dhce	3
 不通	dhce	1
-不对	dhcf	2
+不对	dhcf	3
 还有	dhde	1
 艳夏	dhdh	1
 彗	dhdv	2
@@ -327,8 +328,9 @@
 开	ga	2
 形	gae	2
 开端	gaum	1
-弄好	gavb	1
-开始	gavc	1
+弄好	gavb	2
+开始	gavc	2
+开刀	gavn	1
 开启	gayn	1
 击	gb	2
 顿生	gbtg	1
@@ -1230,6 +1232,7 @@
 符合	twwg	1
 龜	txd	3
 第三	txdg	1
+第二	txfg	1
 系	txi	1
 每当	txiv	1
 系数	txov	1
@@ -1380,7 +1383,7 @@
 途径	wgtc	1
 全部	wguk	1
 命令	wgwy	12
-个	wh	33
+个	wh	34
 悠哉	whfa	1
 修复	whtj	1
 俱	whw	3
@@ -1435,7 +1438,7 @@
 分配	wvsg	1
 分享	wvyb	2
 分离	wvyr	1
-从	ww	3
+从	ww	4
 人妻	wwgv	1
 䁞	wwwh	2
 华	wxf	1
@@ -1510,7 +1513,7 @@
 语义	ygyr	1
 语言	ygyy	6
 让	yh	1
-就	yi	13
+就	yi	14
 就里	yijf	1
 就是	yijg	3
 就近	yirp	2
@@ -1540,7 +1543,7 @@
 这是	ypjg	1
 这么	yptc	2
 这种	yptk	1
-这个	ypwh	11
+这个	ypwh	12
 询	yq	1
 义	yr	2
 离	yr	2
