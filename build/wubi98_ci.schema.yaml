@@ -10,7 +10,7 @@ __build_info:
     symbols: 1700629998
     symbols.custom: 0
     wubi98_ci.custom: 0
-    wubi98_ci.schema: 1705129404
+    wubi98_ci.schema: 1705218956
 charset_filter:
   option_name: gb2312
 ci_reverse_lookup:
@@ -463,7 +463,7 @@ rvlk1:
   tag: rvlk1
   tips: "〔双拼反查〕"
 schema:
-  ascii_icon: "./648081_android_bot_curious_mine_purple_icon.ico"
+  ascii_icon: "./微信截图_20240114155023.ico"
   author:
     - "發明人 王永民"
   dependencies:
@@ -474,7 +474,7 @@ schema:
     碼表源自 yanhuacuo
     敲 z 鍵進入拼音反查
 
-  icon: "./648084_android_bot_eyes_happy_red_icon.ico"
+  icon: "./微信截图_20240114155204.ico"
   name: "五笔·含词"
   schema_id: wubi98_ci
   version: 5.0

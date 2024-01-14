@@ -2,7 +2,7 @@
 #@/db_name	wubi98_ci
 #@/db_type	tabledb
 #@/rime_version	1.9.0
-#@/tick	2390
+#@/tick	2405
 工	a	3
 式	aa	3
 工具	aahw	1
@@ -68,7 +68,7 @@
 叠	cccg	3
 参	cd	3
 参考	cdft	1
-参数	cdov	4
+参数	cdov	6
 能	ce	1
 通过	cefp	3
 能量	cejg	2
@@ -132,7 +132,7 @@
 艳夏	dhdh	1
 彗	dhdv	2
 丰乳	dheb	1
-不用	dhet	1
+不用	dhet	2
 不妥	dhev	2
 不远	dhfq	1
 在于	dhgf	3
@@ -578,7 +578,7 @@
 时而	jfdm	1
 时间	jfuj	6
 野合	jfwg	2
-时候	jfwh	6
+时候	jfwh	7
 量	jg	3
 是否	jgdh	1
 题	jgh	2
@@ -670,7 +670,7 @@
 男人	leww	3
 园地	lffb	1
 围巾	lfmh	1
-转	lfn	3
+转	lfn	4
 黑	lfo	1
 默认	lfyw	1
 四	lh	2
@@ -678,7 +678,8 @@
 四下	lhgh	1
 四旧	lhhj	1
 甲虫	lhjh	2
-四川	lhkt	27
+四星	lhjt	1
+四川	lhkt	28
 四处	lhth	2
 四海之内皆兄弟	lipu	2
 圆	lk	1
@@ -840,7 +841,7 @@
 家中	pgkh	1
 家园	pglf	1
 富国	pglg	2
-写	pgn	4
+写	pgn	5
 富裕	pgpu	1
 写作	pgwt	1
 家族	pgyt	1
@@ -950,7 +951,7 @@
 键入	qvty	1
 欠	qw	2
 白	r	1
-的	r	238
+的	r	240
 找	ra	3
 扛	rag	1
 找到	ragc	2
@@ -1027,7 +1028,7 @@
 打开	rsga	5
 打桩	rsso	1
 手	rt	2
-括号	rtkg	2
+括号	rtkg	3
 播	rto	2
 插柳	rtsq	1
 手机	rtsw	10
@@ -1204,8 +1205,8 @@
 向	tmk	1
 身材	tmsf	1
 微分	tmwv	1
-微信	tmwy	24
-自由主义	tmyy	1
+微信	tmwy	29
+自由主义	tmyy	2
 秋	to	11
 翻	to	1
 秋菊	toaq	10
@@ -1371,6 +1372,7 @@
 传输	wflw	1
 传	wfn	2
 什么	wftc	10
+传递	wfux	2
 传颂	wfwc	1
 付	wfy	1
 合	wg	1
@@ -1511,7 +1513,7 @@
 语句	ygqk	1
 主要	ygsv	4
 语义	ygyr	1
-语言	ygyy	6
+语言	ygyy	7
 让	yh	1
 就	yi	14
 就里	yijf	1

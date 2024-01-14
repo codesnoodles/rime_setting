@@ -13,8 +13,8 @@ schema:
     五笔98版
     碼表源自 yanhuacuo
     敲 z 鍵進入拼音反查
-  icon: "./648084_android_bot_eyes_happy_red_icon.ico"
-  ascii_icon: "./648081_android_bot_curious_mine_purple_icon.ico" 
+  icon: "./微信截图_20240114155204.ico"
+  ascii_icon: "./微信截图_20240114155023.ico" 
   dependencies:
     - py
     - flypy 
